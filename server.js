@@ -25,6 +25,6 @@ server.get("/",(req, res) => {
 });
 
 server.listen(PORT, () => {
-    console.log("Servidor iniciando");
+    console.log(`Servidor iniciando en //localhot${PORT}`);
     
 }); 
