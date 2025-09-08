@@ -1,5 +1,0 @@
-{
-    "wacht":["server.js"],
-    "ext": "js",
-    "ignore": ["node_modules"]
-}

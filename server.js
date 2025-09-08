@@ -1,8 +1,7 @@
 const express = require("express")
-import express from "express"
-const msql = require ("mysql2")
+const mysql = require ("mysql2")
 const server= express()
-const port = 8080
+const PORT = 8080
 
 server.use(express.json());
 
@@ -25,7 +24,7 @@ server.get("/",(req, res) => {
      res.send("Servidor funcionando")
 });
 
-server.listen(port, () => {
+server.listen(PORT, () => {
     console.log("Servidor iniciando");
     
 }); 
