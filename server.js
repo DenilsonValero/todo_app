@@ -40,16 +40,47 @@ server.post("/tareas",(req,res) =>{
     db.query("INSERT INTO tareas (tareascol) VALUES (?)",
     [tareascol],
     (err,result) =>{
-    if (err)
+    if (err){
         console.log("error en el query",err);
-        
-        {return res.status(500).json(err);}
+        return res.status(500).json(err);}
 
     return res.status(201).json({id: result.insertId, tareascol, completada: false});
 });
 });
 
+server.put("/tareas/:idtareas", (req,res) =>{
+    const {idtareas} =req.params;
+    db.query("UPDATE tareas SET completada = NOT completada WHERE idtareas = ?",
+        [idtareas],
+        (err,result) =>{
+        if (err) {
+            console.log("error en UPDATE",err);
+            return res.status(500).json(err);
+        }
+             if (result.affectedRows === 0) {
+                return res.status(404).json({mensaje: "tarea no encontrada"});
+             }
+             return res.status(200).json({mensaje:"tarea completada"})
+        }
+    );
+});
 
+server.delete("/tareas/:idtareas", (req,res) =>{
+    const {idtareas} = req.params;
+    db.query("DELETE FROM tareas WHERE idtareas = ?",
+        [idtareas],
+        (err, result)=>{
+            if (err) {
+                console.log("error al eliminar tarea", err);
+                return res.status(500).json(err)
+            }
+            if (result.affectedRows === 0) {
+                 return res.status(404).json({error: "tarea no encontrada"});
+            }
+             return res.status(200).json({mensaje:"tarea eliminada"});
+        }
+    );
+});
 
 server.get("/",(req, res) => {
      res.send("Servidor funcionando")
