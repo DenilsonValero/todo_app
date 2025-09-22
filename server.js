@@ -1,7 +1,6 @@
 import express from "express"
 import tareasRouter from "./src/routers/tareas.js";
 import usuarioRouter from "./src/routers/Usuario.js";
-/* import db from "./DB.js"; */
 const server= express()
 const PORT = 8080
 
@@ -11,51 +10,6 @@ server.use(express.json());
 
 server.use("/tareas", tareasRouter);
 server.use("/usuarios", usuarioRouter);
-
-/* server.get("/usuarios", (req,res) =>{
-     db.query("SELECT * FROM todo_db.usuarios;", (err, results)=>{
-        if (err) return res.status(500).json(err);
-        res.json(results);
-    });
-});
-
-server.post("/usuarios",(req,res) =>{
-   
-    const {Nombre,Gmail,Password} = req.body;
-    if (!Nombre || !Gmail || !Password) {
-        console.log("no se registro el usuario");
-        
-      return res.status(400).json({error:"falta informacion"})
-    }
-
-    db.query("INSERT INTO usuarios (Nombre,Gmail,Password) VALUES (?,?,?)",
-    [Nombre,Gmail,Password],
-    (err,result) =>{
-    if (err){
-        console.log("error en el query",err);
-        return res.status(500).json(err);}
-
-    return res.status(201).json({id: result.insertId, Nombre, Gmail, Password});
-});
-});
-
-server.delete("/usuarios/:idUsuarios", (req,res) =>{
-    const {idUsuarios} = req.params;
-    db.query("DELETE FROM usuarios WHERE idUsuarios = ?",
-        [idUsuarios],
-        (err, result)=>{
-            if (err) {
-                console.log("error al eliminar usuario", err);
-                return res.status(500).json(err)
-            }
-            if (result.affectedRows === 0) {
-                 return res.status(404).json({error: "Usuarios no encontrado"});
-            }
-             return res.status(200).json({mensaje:"Usuario eliminado"});
-        }
-    );
-}); */
-
 
 server.get("/",(req, res) => {
      res.send("Servidor funcionando")
