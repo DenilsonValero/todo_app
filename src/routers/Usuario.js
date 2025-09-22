@@ -1,25 +1,19 @@
-import express from "express"
-import tareasRouter from "./src/routers/tareas.js";
-import usuarioRouter from "./src/routers/Usuario.js";
-/* import db from "./DB.js"; */
-const server= express()
-const PORT = 8080
+import { Router } from "express";
+import db from "../../DB.js";
 
-server.use(express.json());
+const router = Router()
 
 
-
-server.use("/tareas", tareasRouter);
-server.use("/usuarios", usuarioRouter);
-
-/* server.get("/usuarios", (req,res) =>{
+router.get("/", (req,res) =>{
      db.query("SELECT * FROM todo_db.usuarios;", (err, results)=>{
-        if (err) return res.status(500).json(err);
-        res.json(results);
+        if (err) {
+            return res.status(500).json(err);
+        }
+       return res.json(results);
     });
 });
 
-server.post("/usuarios",(req,res) =>{
+router.post("/",(req,res) =>{
    
     const {Nombre,Gmail,Password} = req.body;
     if (!Nombre || !Gmail || !Password) {
@@ -39,7 +33,7 @@ server.post("/usuarios",(req,res) =>{
 });
 });
 
-server.delete("/usuarios/:idUsuarios", (req,res) =>{
+router.delete("/:idUsuarios", (req,res) =>{
     const {idUsuarios} = req.params;
     db.query("DELETE FROM usuarios WHERE idUsuarios = ?",
         [idUsuarios],
@@ -54,14 +48,6 @@ server.delete("/usuarios/:idUsuarios", (req,res) =>{
              return res.status(200).json({mensaje:"Usuario eliminado"});
         }
     );
-}); */
-
-
-server.get("/",(req, res) => {
-     res.send("Servidor funcionando")
 });
 
-server.listen(PORT, () => {
-    console.log(`Servidor iniciando en http://localhost:${PORT}`);
-    
-}); 
+export default router;
