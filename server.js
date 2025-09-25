@@ -1,12 +1,11 @@
 import express from "express"
 import tareasRouter from "./src/routers/tareas.js";
 import usuarioRouter from "./src/routers/Usuario.js";
+import auth from "./src/middelware/Auth.js";
 const server= express()
 const PORT = 8080
 
 server.use(express.json());
-
-
 
 server.use("/tareas", tareasRouter);
 server.use("/usuarios", usuarioRouter);
